@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, useWindowDimensions, TouchableOpacity, NativeModules } from 'react-native';
 import PipHandler, { usePipModeListener } from 'react-native-pip-android';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,11 +7,20 @@ import CreateCard from './components/Card';
 import Dim from './components/Dim';
 
 function HomeScreen({ navigation }) {
+  let secondActivity = NativeModules.SecondActivity;
+
+  const openNewActivity = () => {
+    secondActivity.open();
+  }
+
   return (
     <View style={ styles.container }>
       <CreateCard />
       <TouchableOpacity
-        onPress={() => PipHandler.enterPipMode(300, 300)}
+        //onPress={() => PipHandler.enterPipMode(300, 300)}
+        onPress={() => {
+          openNewActivity();
+        }}
         style={styles.box}>
         <Text>Enter PIP mode</Text>
       </TouchableOpacity>
