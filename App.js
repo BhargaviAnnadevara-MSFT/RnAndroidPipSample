@@ -8,10 +8,11 @@ function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
+      <TouchableOpacity
+        onPress={() => PipHandler.enterPipMode(300, 214)}
+        style={styles.box}>
+        <Text>Enter PIP mode</Text>
+      </TouchableOpacity>
       <Card></Card>
     </View>
   );
@@ -21,12 +22,7 @@ function DetailsScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
-      <TouchableOpacity
-        onPress={() => PipHandler.enterPipMode(300, 214)}
-        style={styles.box}>
-        <Text>Enter PIP mode</Text>
-      </TouchableOpacity>
-      <Card></Card>
+      
     </View>
   );
 }
@@ -49,7 +45,6 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
