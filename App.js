@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { StyleSheet, Button, View, Text, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, useWindowDimensions, TouchableOpacity } from 'react-native';
 import PipHandler, { usePipModeListener } from 'react-native-pip-android';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CreateCard from './components/Card';
+import Dim from './components/Dim';
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+    <View style={ styles.container }>
+      <CreateCard />
       <TouchableOpacity
-        onPress={() => PipHandler.enterPipMode(300, 214)}
+        onPress={() => PipHandler.enterPipMode(300, 300)}
         style={styles.box}>
         <Text>Enter PIP mode</Text>
       </TouchableOpacity>
-      <Card></Card>
     </View>
   );
 }
@@ -25,9 +26,9 @@ function App() {
 
   if (inPipMode) {
     return (
-      <View style={styles.container}>
-        <Text>PIP Mode</Text>
-        <Card></Card>
+      <View style={styles.pip}>
+        <Text style={{fontWeight: 'bold'}}>PIP Mode</Text>
+        <Dim></Dim>
       </View>
     );
   }
@@ -44,42 +45,23 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40,
+    padding: 10
   },
   box: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'orange',
-    width: 150,
     height: 40,
     marginVertical: 10,
-    color: 'white',
     borderRadius: 30,
   },
-  text: {
-    marginBottom: 5,
-    fontSize: 15,
-  },
+  pip:
+  {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: 'lightyellow',
+  }
 });
-
-export const Card = () => {
-  const screenWidth = Math.round(useWindowDimensions().width);
-  const screenHeight = Math.round(useWindowDimensions().height);
-  console.log(`Width: ${screenWidth}********************`);
-  console.log(`Height: ${screenHeight}********************`);
-
-  return (
-    <View>
-      <Text>
-        W: {screenWidth}
-      </Text>
-      <Text>
-        H: {screenHeight}
-      </Text>
-    </View>
-  );
-};
 
 export default App;
