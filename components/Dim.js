@@ -3,6 +3,7 @@ import { Text, View, useWindowDimensions } from 'react-native';
 export const Dim = () => {
     const screenWidth = Math.round(useWindowDimensions().width);
     const screenHeight = Math.round(useWindowDimensions().height);
+    console.log();
     console.log(`Width: ${screenWidth}********************`);
     console.log(`Height: ${screenHeight}********************`);
 

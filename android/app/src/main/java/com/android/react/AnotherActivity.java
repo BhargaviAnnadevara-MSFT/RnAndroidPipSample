@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 import android.util.Rational;
+import android.view.View;
 import android.widget.TextView;
 
 public class AnotherActivity extends AppCompatActivity {
@@ -16,13 +17,18 @@ public class AnotherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_another);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = (int) (displayMetrics.heightPixels / displayMetrics.density);
-        int width = (int) (displayMetrics.widthPixels / displayMetrics.density);
-
         TextView textView = findViewById(R.id.textView2);
-        //textView.setText(Integer.toString(width) + " x " + Integer.toString(height));
+        textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                TextView textView = findViewById(R.id.textView2);
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int height = (int) (displayMetrics.heightPixels / displayMetrics.density);
+                int width = (int) (displayMetrics.widthPixels / displayMetrics.density);
+                textView.setText(Integer.toString(width) + " x " + Integer.toString(height));
+            }
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

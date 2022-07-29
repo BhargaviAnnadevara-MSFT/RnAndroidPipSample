@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, useWindowDimensions, TouchableOpacity, NativeModules } from 'react-native';
-import PipHandler, { usePipModeListener } from 'react-native-pip-android';
+//import PipHandler, { usePipModeListener } from 'react-native-pip-android';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateCard from './components/Card';
 import Dim from './components/Dim';
 
-function HomeScreen({ navigation }) {
+const HomeScreen = ({ navigation }) => {
   let secondActivity = NativeModules.SecondActivity;
+  const screenWidth = Math.round(useWindowDimensions().width);
 
   const openNewActivity = () => {
     secondActivity.open();
@@ -16,12 +17,13 @@ function HomeScreen({ navigation }) {
   return (
     <View style={ styles.container }>
       <CreateCard />
+      <CreateCard />
       <TouchableOpacity
         //onPress={() => PipHandler.enterPipMode(300, 300)}
         onPress={() => {
           openNewActivity();
         }}
-        style={styles.box}>
+        style={{ ...styles.box, width: screenWidth }}>
         <Text>Enter PIP mode</Text>
       </TouchableOpacity>
     </View>
@@ -31,16 +33,16 @@ function HomeScreen({ navigation }) {
 const Stack = createNativeStackNavigator();
 
 function App() {
-  let inPipMode = usePipModeListener();
+  // let inPipMode = usePipModeListener();
 
-  if (inPipMode) {
-    return (
-      <View style={styles.pip}>
-        <Text style={{fontWeight: 'bold'}}>PIP Mode</Text>
-        <Dim></Dim>
-      </View>
-    );
-  }
+  // if (inPipMode) {
+  //   return (
+  //     <View style={styles.pip}>
+  //       <Text style={{fontWeight: 'bold'}}>PIP Mode</Text>
+  //       <Dim></Dim>
+  //     </View>
+  //   );
+  // }
 
   return (
     <NavigationContainer>
@@ -54,15 +56,16 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10
+    paddingTop: 5,
+    //padding: 10
   },
   box: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'orange',
-    height: 40,
-    marginVertical: 10,
-    borderRadius: 30,
+    height: 35,
+    marginVertical: 1,
+    borderRadius: 20,
   },
   pip:
   {
